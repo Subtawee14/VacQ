@@ -1,4 +1,5 @@
 const Hospital = require("../models/Hospital");
+const vacCenter = require("../models/VacCenter");
 
 const getHospitals = async (req, res) => {
   let query;
@@ -141,10 +142,26 @@ const deleteHospital = async (req, res) => {
   }
 };
 
+const getVacCenters = (req, res, next) => {
+  vacCenter.getAll((err, data) => {
+    if (err) {
+      res.status(500).json({
+        success: false,
+        message:
+          err.message ||
+          "Some error occurred while retrieving Vaccine Centers.",
+      });
+    } else {
+      res.send(data);
+    }
+  });
+};
+
 module.exports = {
   getHospitals,
   getHospital,
   createHospital,
   updateHospital,
   deleteHospital,
+  getVacCenters,
 };

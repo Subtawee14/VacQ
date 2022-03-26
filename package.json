@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.js",
+    "dev": "nodemon --trace-warnings server.js",
     "start": "node server.js"
   },
   "author": "Subtawee Hanyut",
@@ -15,6 +15,7 @@
     "dotenv": "^16.0.0",
     "express": "^4.17.2",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.2.1"
+    "mongoose": "^6.2.1",
+    "mysql2": "^2.3.3"
   }
 }
