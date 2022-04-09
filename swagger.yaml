@@ -1,0 +1,164 @@
+openapi: 3.0.0
+info:
+  title: "Library API"
+  version: "1.0.0"
+  description: "A simple Express VacQ API"
+# host: localhost:3000
+# basePath: /api/v1
+servers:
+  - url: http://localhost:3000/api/v1
+schemes:
+  # - https
+  - http
+tags:
+  - name: Hospitals
+    description: The hospital managing API
+
+paths:
+  /hospitals:
+    # [GET] hospitals
+    get:
+      summary: Returns the list of all the hospitals
+      tags:
+        - "Hospitals"
+      responses:
+        200:
+          description: "The list of the hospitals"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/definitions/Hospital"
+    post:
+      summary: Creates a new hospital
+      tags:
+        - "Hospitals"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/definitions/Hospital"
+      responses:
+        201:
+          description: "The hospital was successfully created"
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/Hospital"
+        500:
+          description: Some server error
+
+  # [GET] hospital
+  /hospitals/{id}:
+    get:
+      summary: Get the hospital by id
+      tags:
+        - "Hospitals"
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: The hospital id
+      responses:
+        200:
+          description: The hospital description by id
+          contents:
+            application/json:
+              schema:
+                $ref: "#/definitions/Hospital"
+        404:
+        description: The hospital was not found
+    put:
+      summary: Update the hospital by id
+      tags:
+        - "Hospitals"
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: The hospital id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/definitions/Hospital"
+      responses:
+        200:
+          description: The hospital was successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/Hospital"
+        404:
+          description: The hospital was not found
+    delete:
+      summary: Delete the hospital by id
+      tags:
+        - "Hospitals"
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: The hospital id
+      responses:
+        204:
+          description: The hospital was successfully deleted
+        404:
+          description: The hospital was not found
+
+# definitions
+definitions:
+  Hospital:
+    type: object
+    required:
+      - name
+      - address
+    properties:
+      id:
+        type: string
+        format: uuid
+        description: The auto-generated id of hospital
+        example: "5d8c6b7c-e8e3-4b4e-b2e4-3f7d8e20e83f"
+      ลำดับ:
+        type: string
+        description: Ordinal number
+      name:
+        type: string
+        description: Hospital name
+      address:
+        type: string
+        description: House No., Street, Road
+      district:
+        type: string
+        description: District
+      province:
+        type: string
+        description: Province
+      postalCode:
+        type: string
+        description: 5-digits Postal Code
+      tel:
+        type: string
+        description: Telephone number
+      region:
+        type: string
+        description: Region
+    example:
+      id: 5d8c6b7c-e8e3-4b4e-b2e4-3f7d8e20e83f
+      ลำดับ: 1
+      name: รพ.สต.สุราษฎร์ธานี
+      address: บ้านที่ 1 ซอยสุราษฎร์ธานี ถนนสุราษฎร์ธานี ตำบลสุราษฎร์ธานี อำเภอสุราษฎร์ธานี จังหวัดสุราษฎร์ธานี รหัสไปรษณีย์ 51130
+      district: สุราษฎร์ธานี
+      province: สุราษฎร์ธานี
+      postalCode: 51130
+      tel: 038-955-5555
+      region: ภาคเหนือ
