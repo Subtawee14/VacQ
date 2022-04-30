@@ -33,7 +33,7 @@ const protect = async (req, res, next) => {
 
 const authorize = (...roles) => {
   return (req, res, next) => {
-    console.log(req.user.role, roles);
+    console.log(roles.includes(req.user.role));
     if (!roles.includes(req.user.role)) {
       return res.status(401).json({
         success: false,
